@@ -7,9 +7,8 @@ The well-known **Intelligent Driver Model (IDM)** proposed by Martin Treiber et 
 * **stochasticity**
 
 
-# Versions and Observations
+## Versions and Observations
 
-## Version 3 (v3): Stochastic inflow
 ### Version 3 (v3): Stochastic inflow
 
 Even though the inflow rate is the same, I found that its stochasticity has a substantial impact on the stop-and-go waves.
@@ -39,7 +38,7 @@ Take the following figures as examples: although the inflow is consistently arou
 </table>
 
 
-## Version 2 (v2): Bottleneck
+### Version 2 (v2): Bottleneck
 
 * **Bottleneck:** At the end of the road and during a given period, a mandatory deceleration segment (_bottleneck_speed_limit_) was introduced to a part of vehicles (_percentage_influenced_by_bottleneck_) as a bottleneck, which triggered stop-and-go traffic.
 * **Driving noise:** A random noise was added to (the driver's perception of) relative speed. IDM itself seems too stable, and noise must be added to trigger stop-and-go. The problem is: if the noise is too large, traffic breaks down itself before arriving at the bottleneck.
@@ -50,12 +49,12 @@ Take the following figures as examples: although the inflow is consistently arou
 <img src="v2/txplot.png" alt="Diagram" width="500">
 
 
-## Version 1 (v1): Preliminary framework
+### Version 1 (v1): Preliminary framework
 
 <img src="v1/txplot.png" alt="Diagram" width="500">
 
 
-# Citation
+## Citation
 If you find this work useful, please consider citing the project
 
 ```bibtex
