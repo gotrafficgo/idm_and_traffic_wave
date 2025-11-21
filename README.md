@@ -1,7 +1,7 @@
 # Intelligent Driver Model on Straight Road 
-The well-known Intelligent Driver Model (IDM) proposed by Martin Treiber et al (https://arxiv.org/abs/cond-mat/0002177). 
+The well-known **Intelligent Driver Model (IDM)** proposed by Martin Treiber et al (https://arxiv.org/abs/cond-mat/0002177). 
 
-* **Keywords:** Straight road, bottleneck, stop-and-go waves
+* **Keywords:** **Straight road**, **bottleneck**, **stop-and-go waves**
 
 
 ## Version 2 (v2)
