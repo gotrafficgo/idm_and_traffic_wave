@@ -4,12 +4,10 @@ The well-known **Intelligent Driver Model (IDM)** proposed by Martin Treiber et 
 * **Keywords:** **Straight road**, **bottleneck**, **stop-and-go waves**
 
 
-## Version 3 (v3)
-Stochastic inflow.
+## Version 3 (v3): Stochastic inflow
 
 Even though the inflow rate is the same, I found that its stochasticity has a substantial impact on the stop-and-go waves.
 Take the following figures as examples, the inflow is all around 1430-1440 veh/h, the results are quite different. 
-
 
 <table>
   <tr>
@@ -35,8 +33,7 @@ Take the following figures as examples, the inflow is all around 1430-1440 veh/h
 </table>
 
 
-## Version 2 (v2)
-Straight road with a deceleration bottleneck, resulting in a stop-and-go wave.
+## Version 2 (v2): Bottleneck
 
 * **Bottleneck:** At the end of the road and during a given period, a mandatory deceleration segment was introduced as a bottleneck, which triggered stop-and-go traffic.
 * **Driving noise:** A random noise was added to (the driver's perception of) relative speed. IDM itself seems too stable, and noise must be added to trigger stop-and-go. The problem is: if the noise is too large, traffic breaks down itself before arriving at the bottleneck.
@@ -47,8 +44,7 @@ Straight road with a deceleration bottleneck, resulting in a stop-and-go wave.
 <img src="v2/txplot.png" alt="Diagram" width="500">
 
 
-## Version 1 (v1)
-A preliminary framework that allows for further extension.
+## Version 1 (v1): Preliminary framework
 
 <img src="v1/txplot.png" alt="Diagram" width="500">
 
