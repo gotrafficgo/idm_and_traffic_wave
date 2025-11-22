@@ -26,7 +26,6 @@ class Config:
         self.idm_safety_time_headway = 1.5    # T
         self.idm_acceleration = 2             # a
         self.idm_desired_deceleration = 3     # b
-        self.idm_delay = 0.4                  # tau
 
         self.vehicle_length = 5               # L                
         self.initial_acceleration = 0         # initial acceleration (m/s^2)
