@@ -16,7 +16,6 @@ class Vehicle:
         self.T          = config.idm_safety_time_headway
         self.a_max      = config.idm_acceleration
         self.b_desired  = config.idm_desired_deceleration
-        self.tau        = config.idm_delay
         self.L          = config.vehicle_length
         self.delta_t    = config.simulation_time_step
         self.a          = config.initial_acceleration
