@@ -58,7 +58,7 @@ Take the following figures as examples: although the inflow is consistently arou
 If you find this work useful, please consider citing the project
 
 ```bibtex
-@article{ZhengbingHe2025,
+@misc{ZhengbingHe2025,
   title={Intelligent Driver Model and Stop-and-Go Waves: Code and Experiements},
   author={He, Zhengbing},
   journal={https://github.com/gotrafficgo/idm_and_traffic_wave},
