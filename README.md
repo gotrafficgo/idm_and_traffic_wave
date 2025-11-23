@@ -61,6 +61,8 @@ If you find this work useful, please consider citing the project
 @misc{ZhengbingHe2025,
   title={Intelligent Driver Model and Stop-and-Go Waves: Code and Experiements},
   author={He, Zhengbing},
-  journal={https://github.com/gotrafficgo/idm_and_traffic_wave},
+  journal={},
+  howpublished = {\url{https://github.com/gotrafficgo/idm_and_traffic_wave}},
   year={2025}
 }
+
