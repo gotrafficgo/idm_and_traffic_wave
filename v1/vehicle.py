@@ -90,7 +90,7 @@ class Vehicle:
             "t": t,
             "position": self.position,
             "speed": self.speed,
-            "acceleration": self.a,
+            "acceleration": self.a
         })
 
 
