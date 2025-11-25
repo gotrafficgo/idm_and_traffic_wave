@@ -7,109 +7,117 @@ class Simulator:
     def __init__(self, config: Config):
         self.config = config
         self.vehicles = []
-        self.history = {
-            'time': [],
-            'speed': [],
-            'position': [],
-            'acceleration': [],
-            'moving_distance': []
-        }
 
 
     def run(self):
+        """Main simulation loop."""
         number_of_vehicles = 0
         time_generation_last = 0
 
-        dt = self.config.simulation_time_step  # 0.1
+        dt = self.config.simulation_time_step  # e.g., 0.1 seconds
         num_steps = int((self.config.time_max - 1) / dt) + 1
 
         for i in range(num_steps):
-            t = 1 + i * dt
+            t = 1 + i * dt  # simulation time starts at t = 1
 
-            if abs(t % 100) < 1e-6: 
-                print(f"{i} : {int(t)}")     
+            # Print every 100 seconds
+            if abs(t % 100) < 1e-6:
+                print(f"step: {i}, time: {int(t)}")
 
-            if i == num_steps - 1:
-                print("Simulation finished, plotting results...")        
-
-            # Vehicle Generation
-            number_of_vehicles, time_generation_last, self.vehicles = self._generate_vehicles(number_of_vehicles, t, time_generation_last, self.vehicles)
+            # 1. Vehicle generation / inflow process
+            number_of_vehicles, time_generation_last, self.vehicles = (
+                self._generate_vehicles(number_of_vehicles, t, time_generation_last, self.vehicles)
+            )
             
-            # Check speed limit
+            # 2. Apply road/bottleneck speed limits
             self._check_road(t)
 
-            # Car-following
+            # 3. Car-following model updates (IDM)
             self._update_all_acceleration()
-            self._update_all_speed() 
+            self._update_all_speed()
             self._update_all_position()
 
-            # Record state
+            # 4. Record per-vehicle state at this timestep
             self._record_all_state(t)
 
-        print("Simulation completed: ", len(self.vehicles), " vehicles generated.")
-        print("-- Vehicle Number = ", len(self.vehicles))
-        print("-- Inflow Rate = ", int(len(self.vehicles) / (self.config.time_max - 1) * 3600), " veh/h" )
+        # Print summary after simulation completes
+        print("\nVehicle Number: ", len(self.vehicles))
+        print("Inflow Rate: ", int(len(self.vehicles) / (self.config.time_max - 1) * 3600), " veh/h\n" )
 
 
     def _check_road(self, current_time):
+        """Call each vehicle's bottleneck/speed-limit checker."""
         for vehicle in self.vehicles:
             vehicle.check_road(current_time)
 
 
     def _update_all_acceleration(self):
+        """Update acceleration of all vehicles using their car-following rules."""
         for vehicle in self.vehicles:
             vehicle.update_acceleration()
 
 
     def _update_all_speed(self):
+        """Update speeds of all vehicles."""
         for vehicle in self.vehicles:
             vehicle.update_speed()
 
 
     def _update_all_position(self):
+        """Update positions of all vehicles."""
         for vehicle in self.vehicles:
             vehicle.update_position()
 
 
     def _record_all_state(self, t):
+        """Record each vehicle’s state at time t."""
         for vehicle in self.vehicles:
             vehicle.record_state(t)
 
 
+    # ChatGPT: Explain the mechanism for me
     def _generate_vehicles(self, number_of_vehicles, t_current, time_generation_last, vehicles):
-        if vehicles:
-            v_front = vehicles[-1]
-        else:
-            v_front = None
+        """
+        Stochastic vehicle generation process.
+        - Vehicles enter the road according to a minimum interval plus
+          an exponential random component (extra_interval).
+        - Each new vehicle follows the last generated one (v_front).
+        """
+        # Determine the front vehicle (last in list)
+        v_front = vehicles[-1] if vehicles else None
 
         t_min = self.config.vehicle_min_interval
         extra_interval = self.config.vehicle_extra_interval
 
-        # Initialize next generation time
+        # Initialize the time for the next vehicle arrival
         if not hasattr(self, 'next_generation_time') or self.next_generation_time is None:
             if extra_interval > 0:
-                self.next_generation_time = t_current + t_min + random.expovariate(1.0 / extra_interval)
+                self.next_generation_time = (
+                    t_current + t_min + random.expovariate(1.0 / extra_interval)
+                )
             else:
                 self.next_generation_time = t_current + t_min
 
         last_generation_time = time_generation_last
 
-        # --- Loop to generate vehicles ---
+        # Generate vehicles as long as time has reached the scheduled generation time
         while self.next_generation_time <= t_current:
-            # Create vehicle
             number_of_vehicles += 1
+
+            # Create the new vehicle
             v = Vehicle(self.config, number_of_vehicles, v_front)
             vehicles.append(v)
             last_generation_time = self.next_generation_time
+
+            # Update front vehicle pointer
             v_front = vehicles[-1]
 
-            # Compute next generation time
+            # Schedule next vehicle arrival
             if extra_interval > 0:
                 interval = t_min + random.expovariate(1.0 / extra_interval)
             else:
                 interval = t_min
+
             self.next_generation_time = last_generation_time + interval
 
         return number_of_vehicles, last_generation_time, vehicles
-    
-
