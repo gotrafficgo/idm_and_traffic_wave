@@ -19,7 +19,6 @@ class Vehicle:
         self.L          = config.vehicle_length
         self.delta_t    = config.simulation_time_step
         self.a          = config.initial_acceleration
-        self.d          = 0 # moving distance in current step
 
 
     ##### Update-1
@@ -83,8 +82,7 @@ class Vehicle:
         ### position update
         d = v * delta_t + 0.5 * a * delta_t ** 2
 
-        self.d = d
-        self.position = self.position + self.d
+        self.position = self.position + d
 
     
     def record_state(self, t):
@@ -93,7 +91,6 @@ class Vehicle:
             "position": self.position,
             "speed": self.speed,
             "acceleration": self.a,
-            "moving_distance": self.d
         })
 
 
