@@ -82,6 +82,20 @@ def plot_time_space_diagram(sim, config):
     )
 
     # ----------------------------------------------------------------------
+    # Plot reference line of wave speed
+    # ----------------------------------------------------------------------
+    slope = -16 * 1000 / 3600  # m/s
+    x0, y0 = 0, 1000
+    x_vals = np.array([0, getattr(config, 'time_max', 100)])  
+    y_vals = y0 + slope * (x_vals - x0)
+    ax.plot(x_vals, y_vals, color='white', linestyle='--', linewidth=2, label='Reference line')
+
+    x_text = 100
+    y_text = y0 + slope * (x_text - x0)
+    ax.text(x_text, y_text, '-16 km/h', color='white', fontsize=10, va='bottom', ha='left')          
+    
+
+    # ----------------------------------------------------------------------
     # Plot formatting
     # ----------------------------------------------------------------------
     ax.set_xlabel('Time (s)')
